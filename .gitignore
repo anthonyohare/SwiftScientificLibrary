@@ -1,0 +1,7 @@
+Example/.build
+Example/libSwiftScientificLibrary.dylib*
+build
+tmp
+libSwiftScientificLibrary.dylib*
+ValidationTests/*.o
+ValidationTests/gsl_tests
