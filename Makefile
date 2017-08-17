@@ -10,15 +10,16 @@ SWIFTPM_OPTIONS := --build-path $(BUILD_DIR)\
 	    $(addprefix -Xswiftc ,$(EXT_LIBS)) \
 	    -Xswiftc -v -Xlinker -v
 
-TARGET = all test
+TARGET = lib test
 
 lib:
 	swift build -c debug  $(SWIFTPM_OPTIONS)
-	@mv lib$(SwiftScientificLibrary)* $(BUILD_DIR)/debug/
+	@cp -Rf lib$(SwiftScientificLibrary)* $(BUILD_DIR)/debug/
+	@rm -rf  lib$(SwiftScientificLibrary)*
 	swift build -c release $(SWIFTPM_OPTIONS) 
 	@mv lib$(SwiftScientificLibrary)* $(BUILD_DIR)/release/
 
-test:
+test:	lib
 	swift test \
 	    --build-path $(BUILD_DIR) \
 	    -Xlinker -L/usr/local/opt/openblas/lib -Xlinker -lopenblas \
@@ -26,9 +27,8 @@ test:
 	@cat swift_build.log  | xcpretty -t --color --report junit
 	@cat swift_build.log  | xcpretty -t --color --report html
 	@cat swift_build.log  | xcpretty -s --color
-	@#@slather coverage --input-format profdata --cobertura-xml --output-directory swift-reports
-	@#@mv swift-reports/cobertura.xml swift-reports/coverage.xml
-	@lizard --xml Sources > swift-reports/lizard-report.xml
+	@#@slather coverage --input-format profdata --cobertura-xml --output-directory build/reports/
+	@lizard --xml Sources > build/reports/lizard-report.xml
 	@swiftlint lint --path Sources > build/reports/Swiftlint.txt
 
 

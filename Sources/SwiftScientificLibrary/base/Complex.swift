@@ -10,7 +10,7 @@ import Foundation
 /// - SeeAlso http://lithium3141.com/blog/2014/12/14/learning-swift-convertibles for the inspiration
 ///        for this class
 
-public class Complex: NumericType, Equatable, ExpressibleByFloatLiteral {
+public class Complex: NumericType, ExpressibleByFloatLiteral {
 
     /// The real and imaginery components of the complex number.
     internal var components: [Double] = [0.0, 0.0]
@@ -197,7 +197,8 @@ public class Complex: NumericType, Equatable, ExpressibleByFloatLiteral {
     ///   - rhs: the second complex number
     /// - Returns: True if the numbers are equal, fa;se otherwise.
     public static func == (lhs: Complex, rhs: Complex) -> Bool {
-        return (abs(lhs.real() - rhs.real()) < 0.000001
-                && (abs(lhs.imag() - rhs.imag()) < 0.000001))
+        return lhs.real() == rhs.real()
+            && lhs.imag() == rhs.imag()
     }
+    
 }
