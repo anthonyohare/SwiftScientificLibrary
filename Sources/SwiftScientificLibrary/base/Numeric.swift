@@ -6,6 +6,8 @@
 import Foundation
 
 /// A num,ber type for SSL, required because vectors can have generic numeric types.
+/// Note however a numeric type does no conform to Comparable as complex numbers are 
+/// not comparable.
 public protocol NumericType: Equatable, ExpressibleByIntegerLiteral {
     static func + (lhs: Self, rhs: Self) -> Self
     static func - (lhs: Self, rhs: Self) -> Self
@@ -14,6 +16,7 @@ public protocol NumericType: Equatable, ExpressibleByIntegerLiteral {
     init (_ value: Int) throws
     init (_ value: Double) throws
     init (_ value: Complex) throws
+
 }
 
 // Extension to NumericType to convert between types (e.g. complex numbers and integers).
@@ -75,6 +78,7 @@ extension Int: NumericType {
 
         self =  Int(value.real())
     }
+
 }
 
 // Extensions to Double to allow casting from complex numbers.
@@ -89,5 +93,12 @@ extension Double: NumericType {
             throw Error.doubleCastError
         }
         self = value.real()
+    }
+    
+    /// /// Determine if two doubles are equal within Double.ulpOfOne
+    ///
+    /// - Parameter other: The 'other' integer to be compared.
+    public static func ==(lhs: Double, rhs: Double) -> Bool {
+        return fabs(lhs - rhs) < Double.ulpOfOne
     }
 }
