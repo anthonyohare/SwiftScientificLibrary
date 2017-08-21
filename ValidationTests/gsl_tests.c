@@ -4,7 +4,6 @@
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_blas.h>
-#include <gsl/gsl_matrix.h>
 #include <gsl/gsl_rng.h>
 #include <iomanip>
 #include <complex>
@@ -15,23 +14,6 @@
 using namespace std::complex_literals;
 
 
-// pretty print
-std::string ppMatrix(const gsl_matrix *m) {
-    std::ostringstream str;
-    int r, c;
-
-    str << "";
-    for (r = 0; r < (int) m->size1; r++) {
-        for (c = 0; c < (int) m->size2; c++) {
-            str << gsl_matrix_get(m, r, c);
-            if (c < m->size2 - 1) {
-                str << " ";
-            }
-        }
-        str << "\n";
-    }
-    return str.str();
-}
 
 // pretty print a gsl vector. 
 std::string ppVector(const gsl_vector *v) {
@@ -105,24 +87,6 @@ vectorOpsCheck() {
     gsl_vector_free(v3);
     gsl_vector_free(v4);
     gsl_vector_free(v5);
-
-    fprintf(stdout, "\n");
-}
-
-void
-matrixOpsCheck() {
-    fprintf(stdout, "\n Matrix Operations ..............................................\n");
-    int L = 3, M = 3;
-    int i, j;
-    gsl_matrix *m = gsl_matrix_alloc(L, M);
-
-    for (i = 0; i < L; i++)
-        for (j = 0; j < M; j++)
-            gsl_matrix_set(m, i, j, 0.23 + 100 * i + j);
-
-    fprintf(stdout, "m = %s\n", ppMatrix(m).c_str());
-
-    gsl_matrix_free(m);
 
     fprintf(stdout, "\n");
 }
@@ -214,7 +178,6 @@ printComplexMathChecks(std::complex<double> c1) {
     fprintf(stdout, "XCTAssertEqual(log10c1.imag(), %1.15f)\n", imag(log10(c1)));
     fprintf(stdout, "XCTAssertEqual(sqrtc1.real(), %1.15f)\n", real(sqrt(c1)));
     fprintf(stdout, "XCTAssertEqual(sqrtc1.imag(), %1.15f)\n", imag(sqrt(c1)));
-
 }
 
 void
@@ -254,7 +217,6 @@ int
 main(void) {
     complexNumOpsCheck();
     vectorOpsCheck();
-    matrixOpsCheck();
     rngCheck();
     complexMathCheck();
 

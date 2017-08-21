@@ -2,17 +2,20 @@ CC=clang++ -std=c++14
 CFLAGS=-c -Wall -pedantic -I/usr/local/include
 LDFLAGS= -L/usr/local/lib
 LIBS= -lgsl -lgslcblas
-SOURCES=gsl_tests.c
+SOURCES=gsl_tests.c gsl_matrix_tests.c
 OBJECTS=$(SOURCES:.c=.o)
-EXECUTABLE=gsl_tests
+EXECUTABLES=$(SOURCES:.c=)
 
-all: $(SOURCES) $(EXECUTABLE)
+all: $(SOURCES) gsl_tests gsl_matrix_tests
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
+gsl_tests: gsl_tests.o
+	$(CC) $(LDFLAGS) gsl_tests.o $(LIBS) -o $@
+
+gsl_matrix_tests: gsl_matrix_tests.o
+	$(CC) $(LDFLAGS) gsl_matrix_tests.o $(LIBS) -o $@
 
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm $(OBJECTS) $(EXECUTABLE)
+	rm $(OBJECTS) $(EXECUTABLES)
