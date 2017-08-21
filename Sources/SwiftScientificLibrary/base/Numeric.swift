@@ -9,6 +9,7 @@ import Foundation
 /// Note however a numeric type does no conform to Comparable as complex numbers are 
 /// not comparable.
 public protocol NumericType: Equatable, ExpressibleByIntegerLiteral {
+
     static func + (lhs: Self, rhs: Self) -> Self
     static func - (lhs: Self, rhs: Self) -> Self
     static func * (lhs: Self, rhs: Self) -> Self
@@ -17,6 +18,7 @@ public protocol NumericType: Equatable, ExpressibleByIntegerLiteral {
     init (_ value: Double) throws
     init (_ value: Complex) throws
 
+    func isApproxEqual<T: NumericType> (to: T, accuracy: Double) -> Bool
 }
 
 // Extension to NumericType to convert between types (e.g. complex numbers and integers).
@@ -79,6 +81,16 @@ extension Int: NumericType {
         self =  Int(value.real())
     }
 
+    /// Determine if two integers are equal within an accuracy (default = Double.ulpOfOne).
+    ///
+    /// - Parameter right: The 'other' integer to be compared.
+    /// - Parameter accuracy: The largest difference between the two double that is acceptable.
+    public func isApproxEqual<T: NumericType>(to: T, accuracy: Double=Double.ulpOfOne) -> Bool {
+        if let i = to as? Int {
+            return fabs(Double(self - i)) <= accuracy
+        }
+        return false
+    }
 }
 
 // Extensions to Double to allow casting from complex numbers.
@@ -94,11 +106,53 @@ extension Double: NumericType {
         }
         self = value.real()
     }
-    
-    /// /// Determine if two doubles are equal within Double.ulpOfOne
+
+    /// Determine if two doubles are equal within an accuracy (default = Double.ulpOfOne).
     ///
-    /// - Parameter other: The 'other' integer to be compared.
-    public static func ==(lhs: Double, rhs: Double) -> Bool {
-        return fabs(lhs - rhs) < Double.ulpOfOne
+    /// - Parameter right: The 'other' integer to be compared.
+    /// - Parameter accuracy: The largest difference between the two double that is acceptable.
+    public func isApproxEqual<T: NumericType>(to: T, accuracy: Double=Double.ulpOfOne) -> Bool {
+        if let i = to as? Double {
+            return fabs(self.distance(to: i)) <= accuracy
+        }
+        return false
     }
+
+//    /// Determine if a double value is less than or equals self to within a tolerance
+//    /// (default = Double.ulpOfOne).
+//    ///
+//    /// - Parameter right: The 'other' integer to be compared.
+//    /// - Parameter accuracy: The largest difference between the two double that is acceptable.
+//    public func lessThanOrEquals<T: NumericType> (right: T, accuracy: Double=Double.ulpOfOne) -> Bool {
+//        return (self.equalTo (right: Double(right), accuracy: accuracy))
+//                || (self.lessThan(right: Double(right), accuracy: accuracy))
+//    }
+//
+//    /// Determine if a double value is greater than or equals self to within a tolerance
+//    /// (default = Double.ulpOfOne).
+//    ///
+//    /// - Parameter right: The 'other' integer to be compared.
+//    /// - Parameter accuracy: The largest difference between the two double that is acceptable.
+//    public func greaterThanOrEquals<T: NumericType>(right: T, accuracy: Double=Double.ulpOfOne) -> Bool {
+//        return (self.equalTo (right: Double(right), accuracy: accuracy))
+//                || (self.greaterThan(right: Double(right), accuracy: accuracy))
+//    }
+//
+//    /// Determine if a double value is less than self to within a tolerance
+//    /// (default = Double.ulpOfOne).
+//    ///
+//    /// - Parameter right: The 'other' integer to be compared.
+//    /// - Parameter accuracy: The largest difference between the two double that is acceptable.
+//    public func lessThan<T: NumericType> (right: T, accuracy: Double=Double.ulpOfOne) -> Bool {
+//        return self.distance(to: Double(right)) > accuracy
+//    }
+//
+//    /// Determine if a double value is greater than self to within a tolerance
+//    /// (default = Double.ulpOfOne).
+//    ///
+//    /// - Parameter right: The 'other' integer to be compared.
+//    /// - Parameter accuracy: The largest difference between the two double that is acceptable.
+//    public func greaterThan<T: NumericType> (right: T, accuracy: Double=Double.ulpOfOne) -> Bool {
+//        return self.distance(to: Double(right)) < accuracy
+//    }
 }

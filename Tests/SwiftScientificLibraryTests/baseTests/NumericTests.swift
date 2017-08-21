@@ -45,6 +45,20 @@ class NumericTests: XCTestCase {
         XCTAssertEqualWithAccuracy(d1 + Double(i1), 4.0 , accuracy:1E-10)
     }
 
+
+    func testApproxOperations() {
+        XCTAssertTrue(1.0.isApproxEqual(to: 1.01,  accuracy: 0.1))
+        XCTAssertFalse(3.isApproxEqual(to: 1,  accuracy: 0.1))
+        XCTAssertTrue(3.isApproxEqual(to: 1,  accuracy: 2))
+        XCTAssertTrue(Complex(real: 2, imag: 0).isApproxEqual(to:2.0,  accuracy: 0.001))
+        XCTAssertTrue(Complex(real: 2, imag: 1).isApproxEqual(to:Complex(real: 2, imag: 1),
+                accuracy: 0.00001))
+        XCTAssertFalse(Complex(real: 2, imag: 1).isApproxEqual(to:Complex(real: 2, imag: 0.99),
+                accuracy: 0.00001))
+        XCTAssertTrue(Complex(real: 2, imag: 1).isApproxEqual(to:Complex(real: 2, imag: 0.99),
+                accuracy: 0.1))
+    }
+
 }
 
 #if os(Linux)
@@ -54,6 +68,7 @@ extension NumericTests {
                 ("testing Numeric operations", testDoubleOperations),
                 ("testing Numeric operations", testComplexOperations),
                 ("testing Numeric operations", testMixedOperations),
+                ("testing Numeric operations", testApproxOperations)
         ]
     }
 

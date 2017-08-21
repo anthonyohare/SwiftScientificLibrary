@@ -190,15 +190,30 @@ public class Complex: NumericType, ExpressibleByFloatLiteral {
     }
 
     /// Determines if two complex numbers are equal to a given complex number (i.e. both real parts
-    ///         and imaginery parts are equal (conforming to the Equatable interface).
+    ///         and imaginery parts are equal (to within a tolerance).
     ///
     /// - Parameters:
     ///   - lhs: the first complex number
     ///   - rhs: the second complex number
-    /// - Returns: True if the numbers are equal, fa;se otherwise.
+    /// - Returns: True if the numbers are equal, false otherwise.
     public static func == (lhs: Complex, rhs: Complex) -> Bool {
-        return lhs.real() == rhs.real()
-            && lhs.imag() == rhs.imag()
+        return (lhs.real().isApproxEqual(to: rhs.real(), accuracy: 0.0001))
+            && (lhs.imag().isApproxEqual(to: rhs.imag(), accuracy: 0.0001))
     }
-    
+
+    /// Determine if two doubles are equal within an accuracy (default = Double.ulpOfOne).
+    ///
+    /// - Parameter right: The 'other' integer to be compared.
+    /// - Parameter accuracy: The largest difference between the two double that is acceptable.
+    public func isApproxEqual<T: NumericType>(to: T, accuracy: Double=Double.ulpOfOne) -> Bool {
+
+        do {
+            let c: Complex = try to.convert()
+            return (self.real().isApproxEqual(to: c.real(), accuracy: accuracy))
+                    && (self.imag().isApproxEqual(to: c.imag(), accuracy: accuracy))
+        } catch {
+            assert(false, "Complex.isApproxEqual(): Cannot determine the type of \(to)")
+            return false
+        }
+    }
 }
