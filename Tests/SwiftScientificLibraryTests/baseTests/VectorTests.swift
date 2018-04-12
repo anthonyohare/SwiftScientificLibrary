@@ -31,7 +31,7 @@ class VectorTests: XCTestCase {
 
     func testVectorDotProductDoubleDouble() {
         try XCTAssertEqual (vd1.dot(vector: vd1), 18.64)
-        try XCTAssertEqualWithAccuracy (vd2.dot(vector: vd3), 0.32, accuracy:0.0001)
+        try XCTAssertEqual (vd2.dot(vector: vd3), 0.32, accuracy:0.0001)
     }
 
 

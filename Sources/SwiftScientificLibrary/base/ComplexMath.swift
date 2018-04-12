@@ -10,8 +10,8 @@ import Foundation
 /// - Parameter value: The complex number argument to the sin() function.
 /// - Returns: The sine of the given number.
 public func sin(value: Complex) -> Complex {
-    let r = value.real()
-    let i = value.imag()
+    let r = value.real
+    let i = value.imag
 
     if i == 0.0 {
         return Complex(real: sin(r), imag: 0.0)
@@ -25,8 +25,8 @@ public func sin(value: Complex) -> Complex {
 /// - Parameter value: The complex number argument to the cos() function.
 /// - Returns: The cosine of the given number.
 public func cos(value: Complex) -> Complex {
-    let r = value.real()
-    let i = value.imag()
+    let r = value.real
+    let i = value.imag
 
     if i == 0.0 {
         return Complex(real: cos(r), imag: 0.0)
@@ -40,8 +40,8 @@ public func cos(value: Complex) -> Complex {
 /// - Parameter value: The complex number argument to the tan() function.
 /// - Returns: The tan of the given number.
 public func tan(value: Complex) -> Complex {
-    let r = value.real()
-    let i = value.imag()
+    let r = value.real
+    let i = value.imag
 
     if i < 1 {
         let d = pow(cos(r), 2.0) + pow(sinh(i), 2.0)
@@ -70,13 +70,13 @@ public func asin(value: Complex) -> Complex {
     // T E Hull, Thomas F Fairgrieve and Ping Tak Peter Tang.
     // ACM Transactions on Mathematical Software, Vol 23, No 3, Sept 1997.
 
-    let x = fabs(value.real())
-    let y = fabs(value.imag())
+    let x = fabs(value.real)
+    let y = fabs(value.imag)
 
-    let answer = Complex()
+    let answer = Complex(real: 0.0, imag: 0.0)
 
     if y == 0.0 {
-        answer.components[0] = acos(x)
+        answer.real = acos(x)
     } else {
         // these values could be adjusted to give slightly better error bounds, depending on the
         // system being used, but I've not tested these.
@@ -89,15 +89,15 @@ public func asin(value: Complex) -> Complex {
         let b = x / a
 
         if b <= Bcrossover {
-            answer.components[0] = asin(b)
+            answer.real = asin(b)
         } else {
             if x <= 1.0 {
                 let d = 0.5 * (a + x) * (y * y / (r + x + 1) + (s + (1 - x)))
-                answer.components[0] = atan(x / sqrt(d))
+                answer.real = atan(x / sqrt(d))
             } else {
                 let Apx = a + x
                 let d = 0.5 * (Apx / (r + x + 1) + Apx / (s + (x - 1)))
-                answer.components[0] = atan(x / (y * sqrt(d)))
+                answer.real = atan(x / (y * sqrt(d)))
             }
         }
 
@@ -109,18 +109,18 @@ public func asin(value: Complex) -> Complex {
                 am1 = 0.5 * (y * y / (r + x + 1) + (s + (x - 1)))
             }
 
-            answer.components[1] = log1p(am1 + sqrt(am1 * (a + 1)))
+            answer.imag = log1p(am1 + sqrt(am1 * (a + 1)))
         } else {
-            answer.components[1] = log(a + sqrt(a * a - 1))
+            answer.imag = log(a + sqrt(a * a - 1))
         }
         // The boost (C++) library includes the Hull et al exception handling code from Fig 6 of
         // their paper, whereas the GNU scientific library does not. We also do not include it.
 
-        if value.real() < 0.0 {
-            answer.components[0] = answer.real()
+        if value.real < 0.0 {
+            //answer.real = answer.real
         }
-        if value.imag() < 0.0 {
-            answer.components[1] *= -1.0
+        if value.imag < 0.0 {
+            answer.imag *= -1.0
         }
     }
     return answer
@@ -138,13 +138,13 @@ public func acos(value: Complex) -> Complex {
     // T E Hull, Thomas F Fairgrieve and Ping Tak Peter Tang.
     // ACM Transactions on Mathematical Software, Vol 23, No 3, Sept 1997.
 
-    let x = fabs(value.real())
-    let y = fabs(value.imag())
+    let x = fabs(value.real)
+    let y = fabs(value.imag)
 
-    let answer = Complex()
+    let answer = Complex(real: 0.0, imag: 0.0)
 
     if y == 0.0 {
-        answer.components[0] = acos(x)
+        answer.real = acos(x)
     } else {
         // these values could be adjusted to give slightly better error bounds, depending on the
         // system being used, but I've not tested these.
@@ -157,12 +157,12 @@ public func acos(value: Complex) -> Complex {
         let b = x / a
 
         if b <= Bcrossover {
-            answer.components[0] = acos(b)
+            answer.real = acos(b)
         } else {
             if x <= 1.0 {
-                answer.components[0] = atan(sqrt(0.5 * (a + x) * (y * y / (r + x + 1) + (s + (1 - x)))) / x)
+                answer.real = atan(sqrt(0.5 * (a + x) * (y * y / (r + x + 1) + (s + (1 - x)))) / x)
             } else {
-                answer.components[0] = atan(y * sqrt(0.5 * ((a + x) / (r + x + 1) + (a + x) / (s + (x - 1)))) / x)
+                answer.real = atan(y * sqrt(0.5 * ((a + x) / (r + x + 1) + (a + x) / (s + (x - 1)))) / x)
             }
         }
 
@@ -173,18 +173,18 @@ public func acos(value: Complex) -> Complex {
             } else {
                 am1 = ((y * y) / (r + (x + 1)) + (s + (x - 1))) * 0.5
             }
-            answer.components[1] = log1p(am1 + sqrt(am1 * (a + 1)))
+            answer.imag = log1p(am1 + sqrt(am1 * (a + 1)))
         } else {
-            answer.components[1] = log(a + sqrt(a * a - 1))
+            answer.imag = log(a + sqrt(a * a - 1))
         }
         // The boost (C++) library includes the Hull et al exception handling code from Fig 6 of
         // their paper, whereas the GNU scientific library does not. We also do not include it.
 
-        if value.real() < 0.0 {
-            answer.components[0] = Double.pi - answer.real()
+        if value.real < 0.0 {
+            answer.real = Double.pi - answer.real
         }
-        if value.imag() >= 0.0 {
-            answer.components[1] *= -1.0
+        if value.imag >= 0.0 {
+            answer.imag *= -1.0
         }
     }
 
@@ -198,41 +198,41 @@ public func acos(value: Complex) -> Complex {
 /// - Returns: The atan of the given number.
 public func atan(value: Complex) -> Complex {
 
-    if value.imag() == 0.0 {
-        return Complex(real: atan(value.real()), imag: 0)
+    if value.imag == 0.0 {
+        return Complex(real: atan(value.real), imag: 0)
     } else {
         // This is a naive implementation which does not fully take into account cancellation errors, overflow,
         // underflow etc. it is translated from the GSL library.
 
-        var result = Complex()
+        var result = Complex(real: 0.0, imag: 0.0)
 
         func hypot(_ xxx: Double, _ yyy: Double) -> Double {
             return sqrt(xxx * xxx + yyy * yyy)
         }
 
-        let r = hypot(value.real(), value.imag())
-        let u = 2 * value.imag() / (1 + value.real() * value.real())
+        let r = hypot(value.real, value.imag)
+        let u = 2 * value.imag / (1 + value.real * value.real)
 
         var imag: Double
 
         if fabs(u) < 0.1 {
             imag = 0.25 * (log1p(u) - log1p(-u))
         } else {
-            let a = hypot(value.real(), value.imag() + 1)
-            let b = hypot(value.real(), value.imag() - 1)
+            let a = hypot(value.real, value.imag + 1)
+            let b = hypot(value.real, value.imag - 1)
             imag = 0.5 * log(a / b)
         }
 
-        if value.real() == 0 {
-            if value.imag() > 1 {
+        if value.real == 0 {
+            if value.imag > 1 {
                 return Complex(real: Double.pi / 2.0, imag: imag)
-            } else if value.imag() < -1 {
+            } else if value.imag < -1 {
                 return Complex(real: -Double.pi / 2.0, imag: imag)
             } else {
                 return Complex(real: 0, imag: imag)
             }
         } else {
-            return Complex(real: 0.5 * atan2(2 * value.real(), ((1 + r) * (1 - r))), imag: imag)
+            return Complex(real: 0.5 * atan2(2 * value.real, ((1 + r) * (1 - r))), imag: imag)
         }
     }
 }
@@ -268,11 +268,13 @@ public func tanh(value: Complex) -> Complex {
 ///
 /// - Parameter value: The complex number argument to the asinh() function.
 /// - Returns: The asinh of the given number.
+/*
 public func asinh(value: Complex) -> Complex {
     // We use asinh(z) = i asin(-i z); as does the boost C++ library
     let i = Complex(real: 0.0, imag: 1.0)
     return i*asin(value: Complex(real: 0.0, imag: -1.0)*value)
 }
+ */
 
 /// Compute the arc-cosh (inverse cosh) of a complex number (acosh(z)). The formula
 /// used is acosh(z) = log(z + sqrt(z-1)*sqrt(z+1)) = \pm acos(z)
@@ -284,7 +286,7 @@ public func acosh(value: Complex) -> Complex {
     // function using the relation acosh(z) = +-i acos(z)
 
     let result = acos(value: value)
-    if !result.imag().isNaN && result.imag() < 0.0 {
+    if !result.imag.isNaN && result.imag < 0.0 {
         return result * Complex(real: 0.0, imag: 1.0)
     }
     return result * Complex(real: 0.0, imag: -1.0)
@@ -296,8 +298,8 @@ public func acosh(value: Complex) -> Complex {
 /// - Parameter value: The complex number argument to the atanh() function.
 /// - Returns: The atanh of the given number.
 public func atanh(value: Complex) -> Complex {
-    let x = fabs(value.real())
-    let y = fabs(value.imag())
+    let x = fabs(value.real)
+    let y = fabs(value.imag)
 
     //
     // Begin by handling the special cases specified in C99:
@@ -305,7 +307,7 @@ public func atanh(value: Complex) -> Complex {
         if y.isNaN {
             return Complex(real: x, imag: x)
         } else if y.isInfinite {
-            let im = value.imag() < 0.0 ? -Double.pi : Double.pi
+            let im = value.imag < 0.0 ? -Double.pi : Double.pi
             return Complex(real: 0, imag: im)
         } else {
             return Complex(real: x, imag: x)
@@ -327,13 +329,13 @@ public func atanh(value: Complex) -> Complex {
 
         var real = log1p(4.0 * x / ((1.0 - x) * (1.0 - x) + y * y))
         real /= 4.0
-        if value.real() < 0.0 {
+        if value.real < 0.0 {
             real *= -1.0
         }
 
         var imag = atan2((y * 2.0), ((1.0 - x) * (1.0 + x) - y * y))
         imag /= 2.0
-        if value.imag() < 0 {
+        if value.imag < 0 {
             imag *= -1.0
         }
 

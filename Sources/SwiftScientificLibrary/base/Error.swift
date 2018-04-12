@@ -1,9 +1,5 @@
-//
-// Error.swift
-//
-// See LICENSE.txt for license information
-
 import Foundation
+
 
 /// An error class defining the errors in SSL.
 ///
@@ -12,4 +8,6 @@ import Foundation
 enum Error: String, Swift.Error {
     case doubleCastError = "Cannot cast Complex to Double: loss of data"
     case integerCastError = "Cannot cast Complex to Integer: loss of data"
+    case vectorCastError = "Cannot coerce vector types"
 }
+

@@ -33,7 +33,7 @@ class RandTests: XCTestCase {
                   0.296910269261057, 0.204993272058105, 0.61275606794655, 0.194577590541452, 0.219026434499842]
 
         for i in 0 ..< 10 {
-            XCTAssertEqualWithAccuracy(g1.sample(), g2[i], accuracy:0.000000000000001)
+            XCTAssertEqual(g1.sample(), g2[i], accuracy:0.000000000000001)
         }
 
         measure {

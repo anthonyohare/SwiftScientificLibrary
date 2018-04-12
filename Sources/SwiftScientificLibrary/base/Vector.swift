@@ -6,7 +6,7 @@
 import Foundation
 
 /// A type for mathematical vectors.
-public class Vector<T: NumericType> {
+public class Vector<T: Numeric> {
     var dimensions: Int
     var components: [T]
 
@@ -53,22 +53,18 @@ public class Vector<T: NumericType> {
     /// - Parameter vector: The vector to be dot'ed with self.
     /// - Returns: The value of the dot product.
     /// - Throws: XXXXCastError if the components of the vector cannot be cast to the correct type.
-    public func dot<U: NumericType>(vector: Vector<U>) throws -> T {
+    public func dot<U>(vector: Vector<U>) throws -> T {
         assert(self.dimensions == vector.dimensions, "Vectors don't have the same dimensions.")
-
-        // Can I cast U to T? If so then do so, else get a runtime error
-        // need to try and test for this first.
-        let vv: [T] = try vector.components.map {
-            try $0.convert()
+        
+        if let _ = vector.components[0] as? T {
+            var sum : T = 0
+            for i in 0..<self.dimensions {
+                let v = vector.components[i] as! T
+                sum += self.components[i]*v
+            }
+            return sum
         }
-
-        var sum: T = 0
-
-        for dimension in 0 ..< self.dimensions {
-            sum = sum + (self.components[dimension] * vv[dimension])
-        }
-
-        return sum
+        throw Error.vectorCastError
     }
 }
 
@@ -78,7 +74,7 @@ public class Vector<T: NumericType> {
 ///   - lhs: the left hand vector.
 ///   - rhs: the right hand vector.
 /// - Returns: The difference of the two numbers.
-public func -<U: NumericType>(lhs: Vector<U>, rhs: Vector<U>) -> Vector<U> {
+public func -<U>(lhs: Vector<U>, rhs: Vector<U>) -> Vector<U> {
     assert(lhs.dimensions == rhs.dimensions, "Vectors don't have the same dimensions.")
     var v = [U]()
     for i in 0 ... lhs.dimensions {
@@ -93,7 +89,7 @@ public func -<U: NumericType>(lhs: Vector<U>, rhs: Vector<U>) -> Vector<U> {
 ///   - lhs: the left hand vector.
 ///   - rhs: the right hand vector.
 /// - Returns: The sum of the two numbers.
-public func +<U: NumericType>(lhs: Vector<U>, rhs: Vector<U>) -> Vector<U> {
+public func +<U>(lhs: Vector<U>, rhs: Vector<U>) -> Vector<U> {
     assert(lhs.dimensions == rhs.dimensions, "Vectors don't have the same dimensions.")
     var v = [U]()
     for i in 0 ... lhs.dimensions {
