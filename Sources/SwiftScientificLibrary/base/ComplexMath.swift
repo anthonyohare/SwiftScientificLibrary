@@ -5,6 +5,60 @@
 
 import Foundation
 
+
+
+
+/// Compute the square root  of a complex number
+/// - SeeAlso https://en.wikipedia.org/wiki/Complex_number#Square_root
+///
+/// - Parameter value: The complex number argument to the sqrt() function.
+/// - Returns: The [positive] square root of the given number.
+public func sqrt(value: Complex) -> Complex {
+
+    if (value.imag.isZero) {
+        return Complex(real: sqrt(value.real), imag: 0.0)
+    }
+    //let abs = value.abs()
+    //let r = sqrt((value.real + abs) / 2.0)
+    //let i = sqrt((-value.real + abs) / 2.0)
+    //return Complex(real: r, imag: i)
+
+
+    //let r = ((re + abs) / T(2)).sqrt
+    //let i = ((-re + abs) / T(2)).sqrt
+    //return Complex(r, (im.sign == .minus) ? -i : i)
+    let abs = value.abs()
+    let r = sqrt((value.real + abs) / 2.0)
+    let i = sqrt((-value.real + abs) / 2.0)
+    return Complex(real: r, imag: (value.imag.sign == .minus) ? -i : i)
+}
+
+/// Calculate the exp(z) function for complex numbers z defined as
+/// $e^z = e^{\Re z + i\Im z} = e^{\Re z} (\cos\Im z + i \sin \Im z)$.
+/// - SeeAlso http://www.theoretical-physics.net/dev/math/complex.html#exponential
+///
+/// - Parameters:
+///   - value: the complex number
+/// - Returns: The log of value.
+public func exp(value: Complex) -> Complex {
+    let abs = exp(value.real)
+    return Complex(real: abs * cos(value.imag), imag: abs * sin(value.imag))
+}
+
+/// Calculate the log(z) function for complex numbers z defined as
+/// $\log(z) = \log|z| + i \arg z$.
+/// - SeeAlso http://www.theoretical-physics.net/dev/math/complex.html#logarithm
+///
+/// - Parameters:
+///   - value: the complex number
+/// - Returns: The log of value.
+public func log(value: Complex) -> Complex {
+    return Complex(real: log(value.abs()), imag: value.arg())
+}
+
+
+
+
 /// Compute the sine of a complex number (sin(z))
 ///
 /// - Parameter value: The complex number argument to the sin() function.

@@ -64,29 +64,14 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
             return (imag.sign == .minus) ? "\(real)\(imag)i" : "\(real)+\(imag)i"
         }
     }
-    
-//    /// Compute the real part of self.
-//    ///
-//    /// - Returns: The real part of self.
-//    public func real() -> Double {
-//        return _real
-//    }
-//
-//    /// Compute the imaginery part of self.
-//    ///
-//    /// - Returns: The imaginery part of self.
-//    public func imag() -> Double {
-//        return _imag
-//    }
 
-    
     /// Compute the difference of two complex numbers.
     ///
     /// - Parameters:
     ///   - lhs: the left hand complex number.
     ///   - rhs: the right hand complex number.
     /// - Returns: The difference of the two numbers.
-    public static func - (lhs: Complex, rhs: Complex) -> Self {
+    public static func - (lhs: Complex, rhs: Complex) -> Complex {
         return self.init(real: (lhs.real - rhs.real),
                          imag: (lhs.imag - rhs.imag))
     }
@@ -97,7 +82,7 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
     ///   - lhs: the left hand complex number.
     ///   - rhs: the right hand complex number.
     /// - Returns: The product of the two numbers.
-    public static func + (lhs: Complex, rhs: Complex) -> Self {
+    public static func + (lhs: Complex, rhs: Complex) -> Complex {
         return self.init(real: (rhs.real + lhs.real),
                          imag: (rhs.imag + lhs.imag))
     }
@@ -108,7 +93,7 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
     ///   - lhs: the left hand complex number.
     ///   - rhs: the right hand complex number.
     /// - Returns: The product of the two numbers.
-    public static func * (lhs: Complex, rhs: Complex) -> Self {
+    public static func * (lhs: Complex, rhs: Complex) -> Complex {
         return self.init(real: (lhs.real * rhs.real - lhs.imag * rhs.imag),
                          imag: (lhs.real * rhs.imag + lhs.imag * rhs.real))
     }
@@ -156,25 +141,35 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
     public func conjugate() -> Complex {
         return Complex(real: self.real, imag: -self.imag)
     }
+
     
-    /// Compute the modulus of the complex number.
+    /// Compute the principal argument (the angle the complex number
+    ///            makes with the positive real axes) of the complex number.
+    ///
+    /// - SeeAlso https://en.wikipedia.org/wiki/Argument_(complex_analysis)
+    /// - SeeAlso http://www.theoretical-physics.net/dev/math/complex.html#argument-function
+    ///
+    /// - Returns: The argument of self.
+    public func arg() -> Double {
+        return atan2(self.imag, self.real)
+    }
+
+    /// Compute the modulus (absolute value) of the complex number.
     /// - SeeAlso https://en.wikipedia.org/wiki/Absolute_value#Complex_numbers1
     ///
     /// - Returns: The modulus of self.
     public func modulus() -> Double {
         return self.magnitude
     }
-    
-    /// Compute the argument (the angle the complex number
-    ///            makes with the positive real axes) of the complex number.
+
+    /// Compute the absolute value (modulus) of the complex number.
+    /// - SeeAlso https://en.wikipedia.org/wiki/Absolute_value#Complex_numbers1
     ///
-    /// - SeeAlso https://en.wikipedia.org/wiki/Argument_(complex_analysis)
-    ///
-    /// - Returns: The argument of self.
-    public func arg() -> Double {
-        return atan2(self.imag, self.real)
+    /// - Returns: The modulus of self.
+    public func abs() -> Double {
+        return self.magnitude
     }
-    
+
     /// Compute the Euclidean norm of the complex number.
     /// - SeeAlso https://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm_of_a_complex_number
     ///
