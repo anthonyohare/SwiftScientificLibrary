@@ -35,5 +35,8 @@ test:	build
 	@tailor -f html Sources > build/reports/Tailor.html
 
 
+project:
+	swift package generate-xcodeproj
+
 clean:
 	@rm -rf $(BUILD_DIR) swift_test.log swift_build.log
