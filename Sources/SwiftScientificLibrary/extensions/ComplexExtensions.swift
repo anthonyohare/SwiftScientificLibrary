@@ -7,11 +7,11 @@ extension Complex {
 /// - SeeAlso http://www.theoretical-physics.net/dev/math/complex.html#power
 ///
 /// - Parameters:
-///   - a: the power that self will be raised by
+///   - of: the power that self will be raised by
 /// - Returns: The value raised to the power of a
-    public func toPower(of a: Complex) -> Complex {
+    public func toPower(of pow: Complex) -> Complex {
         let isSelfZero = self.real.isZero && self.imag.isZero
-        let isAZero = a.real.isZero && a.imag.isZero
-        return isSelfZero ? (isAZero ? 1 : 0) : exp(value: (a * log(value: self)))
+        let isAZero = pow.real.isZero && pow.imag.isZero
+        return isSelfZero ? (isAZero ? 1 : 0) : exp(value: (pow * log(value: self)))
     }
 }

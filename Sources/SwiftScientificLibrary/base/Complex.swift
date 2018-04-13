@@ -1,11 +1,11 @@
 import Foundation
 
-public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringConvertible {
+public final class Complex: Numeric, ExpressibleByFloatLiteral, CustomStringConvertible {
 
     public typealias FloatLiteralType = Float64
     public typealias IntegerLiteralType = Int64
     public typealias Magnitude = Double
-    
+
     /// The real part of the complex number.
     private var _real: Double = 0.0
     public var real: Double {
@@ -16,7 +16,7 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
             _real = newValue
         }
     }
-    
+
     /// The imaginary part of the complex number.
     private var _imag: Double = 0.0
     public var imag: Double {
@@ -27,33 +27,33 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
             _imag = newValue
         }
     }
-    
+
     public var magnitude: Double {
         get {
             return sqrt(self.real * self.real + self.imag * imag)
         }
     }
-    
+
     public required init(integerLiteral value: Int64) {
         self.real = Double(value)
         self.imag = 0.0
     }
-    
+
     public required init(floatLiteral value: Float64) {
         self.real = Double(value)
         self.imag = 0.0
     }
-    
+
     public init(real: Double, imag: Double) {
             self.real = real
             self.imag = imag
     }
 
     // FIXME(integers): implement properly
-    public init?<T>(exactly source: T) where T : BinaryInteger {
+    public init?<T>(exactly source: T) where T: BinaryInteger {
         fatalError()
     }
-    
+
     /// A string description of the complex number.
     public var description: String {
         if imag.isEqual(to: 0.0) {
@@ -97,7 +97,7 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
         return self.init(real: (lhs.real * rhs.real - lhs.imag * rhs.imag),
                          imag: (lhs.real * rhs.imag + lhs.imag * rhs.real))
     }
-    
+
     /// Compute the quotient of two complex numbers.
     ///
     /// - Parameters:
@@ -110,19 +110,19 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
         return Complex(real: (numerator.real / denominator),
                        imag: (numerator.imag / denominator))
     }
-    
+
     public static func -= (lhs: inout Complex, rhs: Complex) {
-        lhs = lhs - rhs
+        lhs -= rhs
     }
-    
+
     public static func += (lhs: inout Complex, rhs: Complex) {
-        lhs = lhs + rhs
+        lhs += rhs
     }
-    
+
     public static func *= (lhs: inout Complex, rhs: Complex) {
-        lhs = lhs * rhs
+        lhs *= rhs
     }
-    
+
     /// Determines if two complex numbers are equal to a given complex number (i.e. both real parts
     ///         and imaginery parts are equal (to within a tolerance).
     ///
@@ -131,9 +131,9 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
     ///   - rhs: the second complex number
     /// - Returns: True if the numbers are equal, false otherwise.
     public static func == (lhs: Complex, rhs: Complex) -> Bool {
-        return lhs.real.isEqual(to: rhs.real, accuracy:0.00001) && lhs.imag.isEqual(to: rhs.imag, accuracy:0.00001)
+        return lhs.real.isEqual(to: rhs.real, accuracy: 0.00001) && lhs.imag.isEqual(to: rhs.imag, accuracy: 0.00001)
     }
-    
+
     /// Compute the conjugate of the complex number.
     /// - SeeAlso https://en.wikipedia.org/wiki/Complex_conjugate
     ///
@@ -142,7 +142,6 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
         return Complex(real: self.real, imag: -self.imag)
     }
 
-    
     /// Compute the principal argument (the angle the complex number
     ///            makes with the positive real axes) of the complex number.
     ///
@@ -177,5 +176,5 @@ public final class Complex : Numeric, ExpressibleByFloatLiteral, CustomStringCon
     public func norm() -> Double {
         return self.magnitude
     }
-    
+
 }

@@ -43,126 +43,119 @@ class ComplexTests: XCTestCase {
     }
 
     func testComplexTrigonometricFunctions() {
-        var c1 = Complex(real: 1.1, imag: 2.0)
-        var cosc1 = cos(value: c1)
-        var sinc1 = sin(value: c1)
-        var tanc1 = tan(value: c1)
-        XCTAssertEqual(cosc1.real, 1.706517373519555, accuracy:1E-15)
-        XCTAssertEqual(cosc1.imag, -3.232284689388683, accuracy:1E-15)
-        XCTAssertEqual(sinc1.real, 3.352896489885151, accuracy:1E-15)
-        XCTAssertEqual(sinc1.imag, 1.645129813951395, accuracy:1E-15)
-        XCTAssertEqual(tanc1.real, 0.030258402753794, accuracy:1E-15)
-        XCTAssertEqual(tanc1.imag, 1.021339491143403, accuracy:1E-15)
 
-        c1 = Complex(real: 2.3, imag: -0.4)
-        cosc1 = cos(value: c1)
-        sinc1 = sin(value: c1)
-        tanc1 = tan(value: c1)
-        XCTAssertEqual(cosc1.real, -0.720292598624068, accuracy:1E-15)
-        XCTAssertEqual(cosc1.imag, 0.306300150264870, accuracy:1E-15)
-        XCTAssertEqual(sinc1.real, 0.806161302420185, accuracy:1E-15)
-        XCTAssertEqual(sinc1.imag, 0.273674425367334, accuracy:1E-15)
-        XCTAssertEqual(tanc1.real, -0.810989358799874, accuracy:1E-15)
-        XCTAssertEqual(tanc1.imag, -0.724817371201988, accuracy:1E-15)
+        let c = [Complex(real:-3.932, imag:-2.428), Complex(real:7.745, imag:6.735), Complex(real:4.185, imag:-4.414), Complex(real:2.344, imag:6.787)]
+
+        XCTAssertTrue( cos(value: c[0]) == Complex(real:-4.01885203268, imag:3.99662966218))
+        XCTAssertTrue( cos(value: c[1]) == Complex(real:45.7548612018, imag:-418.175464441))
+        XCTAssertTrue( cos(value: c[2]) == Complex(real:-20.7882603318, imag:-35.682748422))
+        XCTAssertTrue( cos(value: c[3]) == Complex(real:-309.493188157, imag:-317.134170446))
+
+        XCTAssertTrue( sin(value: c[0]) == Complex(real:4.05931740023, imag:3.9567891983))
+        XCTAssertTrue( sin(value: c[1]) == Complex(real:418.176645965, imag:45.7547319252))
+        XCTAssertTrue( sin(value: c[2]) == Complex(real:-35.693210074, imag:20.782167309))
+        XCTAssertTrue( sin(value: c[3]) == Complex(real:317.134977979, imag:-309.492400083))
+
+        XCTAssertTrue( tan(value: c[0]) == Complex(real:-0.0155637990077, imag:-1.00003481253))
+        XCTAssertTrue( tan(value: c[1]) == Complex(real:6.10975264948e-07, imag:1.00000275858))
+        XCTAssertTrue( tan(value: c[2]) == Complex(real:0.000255009216562, imag:-1.00014462042))
+        XCTAssertTrue( tan(value: c[3]) == Complex(real:-2.54558467896e-06, imag:1.00000006209))
+
+        XCTAssertTrue( sec(value: c[0]) == Complex(real:-0.125103488676, imag:-0.124411724945))
+        XCTAssertTrue( sec(value: c[1]) == Complex(real:0.00025855429731, imag:0.00236305084358))
+        XCTAssertTrue( sec(value: c[2]) == Complex(real:-0.0121895946685, imag:0.0209232630812))
+        XCTAssertTrue( sec(value: c[3]) == Complex(real:-0.00157615097772, imag:0.00161506408524))
+
+        XCTAssertTrue( csc(value: c[0]) == Complex(real:0.1263237465, imag:-0.123133124701))
+        XCTAssertTrue( csc(value: c[1]) == Complex(real:0.00236304448291, imag:-0.000258552140313))
+        XCTAssertTrue( csc(value: c[2]) == Complex(real:-0.0209233437875, imag:-0.0121824971852))
+        XCTAssertTrue( csc(value: c[3]) == Complex(real:0.00161506799717, imag:0.00157614676856))
+
+        XCTAssertTrue( cot(value: c[0]) == Complex(real:-0.015558946824, imag:0.999723040794))
+        XCTAssertTrue( cot(value: c[1]) == Complex(real:6.10971894127e-07, imag:-0.999997241431))
+        XCTAssertTrue( cot(value: c[2]) == Complex(real:0.000254935456908, imag:0.999855335493))
+        XCTAssertTrue( cot(value: c[3]) == Complex(real:-2.54558436275e-06, imag:-0.9999999379))
+
+    }
+
+    func testComplexArcTrigonometricFunctions() {
+        let c = [Complex(real:-4.185, imag:6.652), Complex(real:9.579, imag:-0.926), Complex(real:-0.591, imag:7.111), Complex(real:-0.391, imag:-5.606)]
+
+        XCTAssertTrue( acos(value: c[0]) == Complex(real:2.12873332692, imag:-2.75656932716))
+        XCTAssertTrue( acos(value: c[1]) == Complex(real:0.0968915537983, imag:2.95471165666))
+        XCTAssertTrue( acos(value: c[2]) == Complex(real:1.65291745891, imag:-2.66304075048))
+        XCTAssertTrue( acos(value: c[3]) == Complex(real:1.63935651586, imag:2.42716186611))
+
+        XCTAssertTrue( asin(value: c[0]) == Complex(real:-0.557937000125, imag:2.75656932716))
+        XCTAssertTrue( asin(value: c[1]) == Complex(real:1.473904773, imag:-2.95471165666))
+        XCTAssertTrue( asin(value: c[2]) == Complex(real:-0.0821211321182, imag:2.66304075048))
+        XCTAssertTrue( asin(value: c[3]) == Complex(real:-0.0685601890671, imag:-2.42716186611))
+
+        XCTAssertTrue( atan(value: c[0]) == Complex(real:-1.50235326888, imag:0.107617040128))
+        XCTAssertTrue( atan(value: c[1]) == Complex(real:1.46772417539, imag:-0.00989289785458))
+        XCTAssertTrue( atan(value: c[2]) == Complex(real:-1.55895855368, imag:0.14056176966))
+        XCTAssertTrue( atan(value: c[3]) == Complex(real:-1.55801302699, imag:-0.179388468186))
+
     }
 
     func testComplexHyperbolicFunctions() {
-//        var c1 = Complex(real: 1.1, imag: 2.0)
-//        var coshc1 = cosh(value: c1)
-//        var sinhc1 = sinh(value: c1)
-//        var tanhc1 = tanh(value: c1)
-//        XCTAssertEqual(coshc1.real(), -0.694348717893345, accuracy:1E-15)
-//        XCTAssertEqual(coshc1.imag(), 1.214500807730146, accuracy:1E-15)
-//        XCTAssertEqual(sinhc1.real(), -0.555825469434370, accuracy:1E-15)
-//        XCTAssertEqual(sinhc1.imag(), 1.517179627601486, accuracy:1E-15)
-//        XCTAssertEqual(tanhc1.real(), 1.138682614230718, accuracy:1E-15)
-//        XCTAssertEqual(tanhc1.imag(), -0.193344740777106, accuracy:1E-15)
-//
-//        c1 = Complex(real: 2.3, imag: -0.4)
-//        coshc1 = cosh(value: c1)
-//        sinhc1 = sinh(value: c1)
-//        tanhc1 = tanh(value: c1)
-//        XCTAssertEqual(coshc1.real(), 4.639587458227343, accuracy:1E-15)
-//        XCTAssertEqual(coshc1.imag(), -1.922543482356829, accuracy:1E-15)
-//        XCTAssertEqual(sinhc1.real(), 4.547242947970438, accuracy:1E-15)
-//        XCTAssertEqual(sinhc1.imag(), -1.961586115081145, accuracy:1E-15)
-//        XCTAssertEqual(tanhc1.real(), 0.985989214178122, accuracy:1E-15)
-//        XCTAssertEqual(tanhc1.imag(), -0.014220871636306, accuracy:1E-15)
+        let c = [Complex(real:2.535, imag:5.059), Complex(real:2.159, imag:-6.935), Complex(real:-2.624, imag:7.55), Complex(real:9.357, imag:0.129)]
+
+        XCTAssertTrue( cosh(value: c[0]) == Complex(real:2.15644164344, imag:-5.89578801735))
+        XCTAssertTrue( cosh(value: c[1]) == Complex(real:3.48915068703, imag:-2.59244275036))
+        XCTAssertTrue( cosh(value: c[2]) == Complex(real:2.07479126082, imag:-6.54465647554))
+        XCTAssertTrue( cosh(value: c[3]) == Complex(real:5741.6915847, imag:744.814278929))
+
+        XCTAssertTrue( sinh(value: c[0]) == Complex(real:2.12951546021, imag:-5.97033599384))
+        XCTAssertTrue( sinh(value: c[1]) == Complex(real:3.39737730341, imag:-2.66247242967))
+        XCTAssertTrue( sinh(value: c[2]) == Complex(real:-2.05308677927, imag:6.61384418701))
+        XCTAssertTrue( sinh(value: c[3]) == Complex(real:5741.69149906, imag:744.814290039))
+
+        XCTAssertTrue( tanh(value: c[0]) == Complex(real:1.00967898841, imag:-0.00810720412084))
+        XCTAssertTrue( tanh(value: c[1]) == Complex(real:0.992661353288, imag:-0.0255233174967))
+        XCTAssertTrue( tanh(value: c[2]) == Complex(real:-1.00865084861, imag:0.00605886447957))
+        XCTAssertTrue( tanh(value: c[3]) == Complex(real:0.999999985578, imag:3.80569484802e-09))
     }
 
-    func testArcFunctions() {
-        var c1 = Complex(real: 1.1, imag: 2.0)
-//        var acosc1 = acos(value: c1)
-//        var asinc1 = asin(value: c1)
-        var atanc1 = atan(value: c1)
-//        XCTAssertEqual(acosc1.real, 1.105429353067930, accuracy:1E-15)
-//        XCTAssertEqual(acosc1.imag, -1.545271475519208, accuracy:1E-15)
-//        XCTAssertEqual(asinc1.real, 0.465366973726966, accuracy:1E-15)
-//        XCTAssertEqual(asinc1.imag, 1.545271475519210, accuracy:1E-15)
-        XCTAssertEqual(atanc1.real, 1.330028090459457, accuracy:1E-15)
-        XCTAssertEqual(atanc1.imag, 0.382593779161728, accuracy:1E-15)
-//        var acoshc1 = acosh(value: c1)
-//        var asinhc1 = asinh(value: c1)
-        var atanhc1 = atanh(value: c1)
-//        XCTAssertEqual(acoshc1.real, 1.545271475519208, accuracy:1E-15)
-//        XCTAssertEqual(acoshc1.imag, 1.105429353067930, accuracy:1E-15)
-//        XCTAssertEqual(asinhc1.real, 1.494605773235711, accuracy:1E-15)
-//        XCTAssertEqual(asinhc1.imag, 1.024300928663079, accuracy:1E-15)
-        XCTAssertEqual(atanhc1.real, 0.185157558166595, accuracy:1E-15)
-        XCTAssertEqual(atanhc1.imag, 1.190883738370785, accuracy:1E-15)
+    func testComplexArcHyperbolicFunctions() {
+        let c = [Complex(real:2.535, imag:5.059), Complex(real:2.159, imag:-6.935), Complex(real:-2.624, imag:7.55), Complex(real:9.357, imag:0.129)]
 
-        c1 = Complex(real: 2.3, imag: -0.4)
-//        acosc1 = acos(value: c1)
-//        asinc1 = asin(value: c1)
-        atanc1 = atan(value: c1)
-//        XCTAssertEqual(acosc1.real, 0.190003953676110, accuracy:1E-15)
-//        XCTAssertEqual(acosc1.imag, 1.495169029335947, accuracy:1E-15)
-//        XCTAssertEqual(asinc1.real, 1.380792373118787, accuracy:1E-15)
-//        XCTAssertEqual(asinc1.imag, -1.495169029335947, accuracy:1E-15)
-        XCTAssertEqual(atanc1.real, 1.169810711039864, accuracy:1E-15)
-        XCTAssertEqual(atanc1.imag, -0.062336480927059, accuracy:1E-15)
-//        acoshc1 = acosh(value: c1)
-//        asinhc1 = asinh(value: c1)
-        atanhc1 = atanh(value: c1)
-//        XCTAssertEqual(acoshc1.real, 1.495169029335947, accuracy:1E-15)
-//        XCTAssertEqual(acoshc1.imag, -0.190003953676110, accuracy:1E-15)
-//        XCTAssertEqual(asinhc1.real, 1.581853237015094, accuracy:1E-15)
-//        XCTAssertEqual(asinhc1.imag, -0.158467170949428, accuracy:1E-15)
-        XCTAssertEqual(atanhc1.real, 0.446811197218382, accuracy:1E-15)
-        XCTAssertEqual(atanhc1.imag, -1.481858695291858, accuracy:1E-15)
+        XCTAssertTrue( acosh(value: c[0]) == Complex(real:2.4310211389, imag:1.11244652303))
+        XCTAssertTrue( acosh(value: c[1]) == Complex(real:2.67987062283, imag:-1.27164613148))
+        XCTAssertTrue( acosh(value: c[2]) == Complex(real:2.77477625575, imag:1.9028818709))
+        XCTAssertTrue( acosh(value: c[3]) == Complex(real:2.92650087559, imag:0.0138649787513))
+
+        XCTAssertTrue( asinh(value: c[0]) == Complex(real:2.4216766192, imag:1.09993684445))
+        XCTAssertTrue( asinh(value: c[1]) == Complex(real:2.67206793393, imag:-1.26626567467))
+        XCTAssertTrue( asinh(value: c[2]) == Complex(real:-2.76863711904, imag:1.23385670998))
+        XCTAssertTrue( asinh(value: c[3]) == Complex(real:2.93220857222, imag:0.0137075623028))
+
+        XCTAssertTrue( atanh(value: c[0]) == Complex(real:0.0773843452843, imag:1.41314703989))
+        XCTAssertTrue( atanh(value: c[1]) == Complex(real:0.0402500465193, imag:-1.43987721801))
+        XCTAssertTrue( atanh(value: c[2]) == Complex(real:-0.0405275088846, imag:1.45297189263))
+        XCTAssertTrue( atanh(value: c[3]) == Complex(real:0.107260773512, imag:1.56930620916))
+
+
     }
 
     func testComplexExponentialFunctions() {
-        let c = [Complex(real:-2.118, imag:-3.015), Complex(real:0.451, imag:-0.996), Complex(real:9.354, imag:0.46), Complex(real:-0.446, imag:2.085)]
+        let c = [Complex(real:-4.185, imag:6.652), Complex(real:9.579, imag:-0.926), Complex(real:-0.591, imag:7.111), Complex(real:-0.391, imag:-5.606)]
 
-        XCTAssertEqual(exp(value: c[0]).real, -0.119309497383, accuracy:1E-6)
-        XCTAssertEqual(exp(value: c[0]).imag, -0.0151849089324, accuracy:1E-6)
-        XCTAssertEqual(exp(value: c[1]).real, 0.853487715083, accuracy:1E-6)
-        XCTAssertEqual(exp(value: c[1]).imag, -1.31760614755, accuracy:1E-6)
-        XCTAssertEqual(exp(value: c[2]).real, 10344.8462029, accuracy:1E-6)
-        XCTAssertEqual(exp(value: c[2]).imag, 5125.34131796, accuracy:1E-6)
-        XCTAssertEqual(exp(value: c[3]).real, -0.314869046293, accuracy:1E-6)
-        XCTAssertEqual(exp(value: c[3]).imag, 0.557398193124, accuracy:1E-6)
+        XCTAssertTrue( exp(value: c[0]) == Complex(real:0.0141985935126, imag:0.00548775874128))
+        XCTAssertTrue( exp(value: c[1]) == Complex(real:8689.74615145, imag:-11555.1178733))
+        XCTAssertTrue( exp(value: c[2]) == Complex(real:0.374620257903, imag:0.407828956353))
+        XCTAssertTrue( exp(value: c[3]) == Complex(real:0.527129769552, imag:0.423821096143))
 
-        XCTAssertEqual(log(value: c[0]).real, 1.30415725156, accuracy:1E-6)
-        XCTAssertEqual(log(value: c[0]).imag, -2.18318984567, accuracy:1E-6)
-        XCTAssertEqual(log(value: c[1]).real, 0.089247539244, accuracy:1E-6)
-        XCTAssertEqual(log(value: c[1]).imag, -1.14560702812, accuracy:1E-6)
-        XCTAssertEqual(log(value: c[2]).real, 2.23701177949, accuracy:1E-6)
-        XCTAssertEqual(log(value: c[2]).imag, 0.0491372377536, accuracy:1E-6)
-        XCTAssertEqual(log(value: c[3]).real, 0.757139370614, accuracy:1E-6)
-        XCTAssertEqual(log(value: c[3]).imag, 1.78152933509, accuracy:1E-6)
+        XCTAssertTrue( log(value: c[0]) == Complex(real:2.06165490323, imag:2.13236295246))
+        XCTAssertTrue( log(value: c[1]) == Complex(real:2.26422402995, imag:-0.0963703477306))
+        XCTAssertTrue( log(value: c[2]) == Complex(real:1.96508469959, imag:1.65371643047))
+        XCTAssertTrue( log(value: c[3]) == Complex(real:1.72626385685, imag:-1.64043025907))
 
-        XCTAssertEqual(sqrt(value: c[0]).real, 0.885037459279, accuracy:1E-6)
-        XCTAssertEqual(sqrt(value: c[0]).imag, -1.7033177344, accuracy:1E-6)
-        XCTAssertEqual(sqrt(value: c[1]).real, 0.878735247437, accuracy:1E-6)
-        XCTAssertEqual(sqrt(value: c[1]).imag, -0.566723596729, accuracy:1E-6)
-        XCTAssertEqual(sqrt(value: c[2]).real, 3.05935482081, accuracy:1E-6)
-        XCTAssertEqual(sqrt(value: c[2]).imag, 0.0751792497019, accuracy:1E-6)
-        XCTAssertEqual(sqrt(value: c[3]).real, 0.918196097067, accuracy:1E-6)
-        XCTAssertEqual(sqrt(value: c[3]).imag, 1.13537838304, accuracy:1E-6)
-        XCTAssertEqual(sqrt(value: Complex(real:4.0, imag:0.0)).real, 2.0, accuracy:1E-6)
-        XCTAssertEqual(sqrt(value: Complex(real:4.0, imag:0.0)).imag, 0.0, accuracy:1E-6)
+        XCTAssertTrue( sqrt(value: c[0]) == Complex(real:1.35535325302, imag:2.45397278723))
+        XCTAssertTrue( sqrt(value: c[1]) == Complex(real:3.09860081616, imag:-0.1494222804))
+        XCTAssertTrue( sqrt(value: c[2]) == Complex(real:1.80893849259, imag:1.96551735428))
+        XCTAssertTrue( sqrt(value: c[3]) == Complex(real:1.6168826391, imag:-1.73358284158))
+
     }
 
     func testComplexPowerFunctions() {
@@ -199,10 +192,11 @@ extension ComplexTests {
             ("testing Complex operations", testComplexInit),
             ("testing Complex operations", testComplexOperations),
             ("testing Complex operations", testComplexTrigonometricFunctions),
+            ("testing Complex operations", testComplexArcTrigonometricFunctions),
             ("testing Complex operations", testComplexHyperbolicFunctions),
+            ("testing Complex operations", testComplexArcHyperbolicFunctions),
             ("testing Complex operations", testComplexExponentialFunctions),
-            ("testing Complex operations", testComplexPowerFunctions),
-            ("testing Complex operations", testArcFunctions)
+            ("testing Complex operations", testComplexPowerFunctions)
         ]
     }
 
