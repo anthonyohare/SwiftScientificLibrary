@@ -6,3 +6,4 @@ tmp/
 ValidationTests/*.o
 ValidationTests/gsl_tests
 swift_build.log
+swift_test.log
