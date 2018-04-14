@@ -100,7 +100,7 @@ public func tan(value: Complex) -> Complex {
     }
 }
 
-/// Compute the cot of a complex number (cot(z) = cos(z)/sin(z)).
+/// Compute the cotangent of a complex number (cot(z) = cos(z)/sin(z)).
 ///
 /// - Parameter value: The complex number argument to the cot() function.
 /// - Returns: The cot of the given number.
@@ -160,6 +160,30 @@ public func atan(value: Complex) -> Complex {
     return (pureI/2.0) * (log(value: (1-pureI*value)) - log(value: (1+pureI*value)))
 }
 
+/// Compute the inverse cotangent of a complex number (acot(z) = atan(1/z)).
+///
+/// - Parameter value: The complex number argument to the cot() function.
+/// - Returns: The cot of the given number.
+public func acot(value zed: Complex) -> Complex {
+    return atan(value: zed.inverse())
+}
+
+/// Compute the inverse cosecant function of a complex number (acsc(z) = asin(1/z)).
+///
+/// - Parameter value: The complex number argument to the csc() function.
+/// - Returns: The csc of the given number.
+public func acsc(value zed: Complex) -> Complex {
+    return asin(value: zed.inverse())
+}
+
+/// Compute the inverse secant function of a complex number (asec(z) = acos(1/z)).
+///
+/// - Parameter value: The complex number argument to the csc() function.
+/// - Returns: The csc of the given number.
+public func asec(value zed: Complex) -> Complex {
+    return acos(value: zed.inverse())
+}
+
 // //////////////////////  HyperbolicTrigonometic Functions /////////////////////////////////////
 
 /// Compute the sinh (hyperbolic sinh) of a complex number (sinh(z) = -isin(iz)).
@@ -190,6 +214,30 @@ public func cosh(value: Complex) -> Complex {
 public func tanh(value: Complex) -> Complex {
     let pureI = Complex(real: 0.0, imag: 1.0)
     return -1.0*pureI*tan(value: (pureI*value))
+}
+
+/// Compute the hyperbolic cotangent of a complex number (coth(z) =  coth(z) = 1/tanh(z)).
+///
+/// - Parameter value: The complex number argument to the cot() function.
+/// - Returns: The cot of the given number.
+public func coth(value zed: Complex) -> Complex {
+    return Complex(real: 1.0, imag: 0.0) / tanh(value: zed)
+}
+
+/// Compute the hyperbolic cosecant function of a complex number (scsh(z) = 1/sinh(z)).
+///
+/// - Parameter value: The complex number argument to the csc() function.
+/// - Returns: The csc of the given number.
+public func csch(value zed: Complex) -> Complex {
+    return Complex(real: 1.0, imag: 0.0) / sinh(value: zed)
+}
+
+/// Compute the hyperbolic secant function of a complex number (sech(z) = 1/cosh(z)).
+///
+/// - Parameter value: The complex number argument to the csc() function.
+/// - Returns: The csc of the given number.
+public func sech(value zed: Complex) -> Complex {
+    return Complex(real: 1.0, imag: 0.0) / cosh(value: zed)
 }
 
 // //////////////////////  Inverse Hyperbolic Trigonometic Functions /////////////////////////////////////////
@@ -270,4 +318,28 @@ public func atanh(value: Complex) -> Complex {
 
         return Complex(real: real, imag: imag)
     }
+}
+
+/// Compute the inverse hyperbolic cotangent of a complex number (acoth(z) = atanh(1/z)).
+///
+/// - Parameter value: The complex number argument to the cot() function.
+/// - Returns: The cot of the given number.
+public func acoth(value zed: Complex) -> Complex {
+    return atanh(value: zed.inverse())
+}
+
+/// Compute the inverse hyperbolic cosecant function of a complex number (acsch(z) = asin(1/z)).
+///
+/// - Parameter value: The complex number argument to the csc() function.
+/// - Returns: The csc of the given number.
+public func acsch(value zed: Complex) -> Complex {
+    return asinh(value: zed.inverse())
+}
+
+/// Compute the inverse hyperbolic secant function of a complex number (asech(z) = acosh(1/z)).
+///
+/// - Parameter value: The complex number argument to the csc() function.
+/// - Returns: The csc of the given number.
+public func asech(value zed: Complex) -> Complex {
+    return acosh(value: zed.inverse())
 }

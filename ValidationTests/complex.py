@@ -1,8 +1,26 @@
 
 # Generate test cases for complex maths -  the output should copy'n'pasteable to ComplexTests
 
+
+from cmath import sqrt, exp, log
+from cmath import cos, sin, tan
+from cmath import acos, asin, atan
+from cmath import cosh, sinh, tanh
+from cmath import acosh, asinh, atanh
+from sympy import asec, acsc, acot
+from sympy import sech, csch, coth
+from sympy import asech, acsch, acoth
+from sympy import re, im
+import sympy
+
 def toSwift(z):
-    return "Complex(real:" + str(z.real) + ", imag:" + str(z.imag) + ")"
+    if isinstance(z, complex) or isinstance(z, float):
+        real = str(z.real)
+        imag = str(z.imag)
+    elif isinstance(z, tuple(sympy.core.all_classes)):
+        real = str(re(z))
+        imag = str(im(z))
+    return "Complex(real:" + real + ", imag:" + imag + ")"
 
 def generate_values(n):
     from random import uniform
@@ -22,14 +40,6 @@ def generate_values(n):
     return c,c_swift
 
 
-
-
-
-from cmath import sqrt, exp, log
-from cmath import cos, sin, tan
-from cmath import acos, asin, atan
-from cmath import cosh, sinh, tanh
-from cmath import acosh, asinh, atanh
 
 cNums, cSwift = generate_values(5)
 
@@ -91,6 +101,23 @@ for i in range(0, len(cNums)):
     print ('XCTAssertTrue( atan(value: c[{}]) == {})'.format(i, toSwift(atan(cNums[i]))))
 print ('')
 
+for i in range(0, len(cNums)):
+    print ('XCTAssertTrue( asec(value: c[{}]) == {})'.format(i, toSwift(asec(cNums[i]))))
+print ('')
+
+for i in range(0, len(cNums)):
+    print ('XCTAssertTrue( acsc(value: c[{}]) == {})'.format(i, toSwift(acsc(cNums[i]))))
+print ('')
+
+for i in range(0, len(cNums)):
+    print ('XCTAssertTrue( acot(value: c[{}]) == {})'.format(i, toSwift(acot(cNums[i]))))
+print ('')
+
+
+
+
+
+
 
 
 print ("testComplexHyperbolicFunctions \n\n")
@@ -108,6 +135,19 @@ for i in range(0, len(cNums)):
     print ('XCTAssertTrue( tanh(value: c[{}]) == {})'.format(i, toSwift(tanh(cNums[i]))))
 print ('')
 
+for i in range(0, len(cNums)):
+    print ('XCTAssertTrue( sech(value: c[{}]) == {})'.format(i, toSwift(sech(cNums[i]))))
+print ('')
+
+for i in range(0, len(cNums)):
+    print ('XCTAssertTrue( csch(value: c[{}]) == {})'.format(i, toSwift(csch(cNums[i]))))
+print ('')
+
+for i in range(0, len(cNums)):
+    print ('XCTAssertTrue( coth(value: c[{}]) == {})'.format(i, toSwift(coth(cNums[i]))))
+print ('')
+
+
 
 
 
@@ -124,6 +164,18 @@ print ('')
 
 for i in range(0, len(cNums)):
     print ('XCTAssertTrue( atanh(value: c[{}]) == {})'.format(i, toSwift(atanh(cNums[i]))))
+print ('')
+
+for i in range(0, len(cNums)):
+    print ('XCTAssertTrue( asech(value: c[{}]) == {})'.format(i, toSwift(asech(cNums[i]))))
+print ('')
+
+for i in range(0, len(cNums)):
+    print ('XCTAssertTrue( acsch(value: c[{}]) == {})'.format(i, toSwift(acsch(cNums[i]))))
+print ('')
+
+for i in range(0, len(cNums)):
+    print ('XCTAssertTrue( acoth(value: c[{}]) == {})'.format(i, toSwift(acoth(cNums[i]))))
 print ('')
 
 
